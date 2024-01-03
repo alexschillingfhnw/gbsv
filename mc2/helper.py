@@ -119,7 +119,7 @@ def read_images(text):
 
 
 def plot_image_list(img_list, titles=None, cmap=None):
-    fig, axes = plt.subplots(1, len(img_list), figsize=(20, 10))
+    fig, axes = plt.subplots(1, len(img_list), figsize=(16, 10))
 
     for i, image in enumerate(img_list):
         axes[i].imshow(image, cmap=cmap)
@@ -189,7 +189,9 @@ def match_and_visualize(images, keypoints_list, descriptors_list, n):
 
     for i in range(num_images):
         for j in range(i + 1, num_images):
-            matches = match_descriptors(descriptors_list[i], descriptors_list[j])
+            matches = match_descriptors(descriptors_list[i], descriptors_list[j])   
+
+            accuracy = len(matches) / n    
 
             fig, ax = plt.subplots(nrows=1, ncols=1, figsize=(12, 8))
 
@@ -197,6 +199,6 @@ def match_and_visualize(images, keypoints_list, descriptors_list, n):
 
             plot_matches(ax, images[i], images[j], keypoints_list[i], keypoints_list[j], matches, only_matches=True)
             ax.axis('off')
-            ax.set_title('Bild {} - Bild {} ({} Matches für {} Keypoints)'.format(i + 1, j + 1, len(matches), n))
+            ax.set_title('Bild {} - Bild {} ({} Matches für {} Keypoints) - ({} Genauigkeit)'.format(i + 1, j + 1, len(matches), n, accuracy))
 
             plt.show()
