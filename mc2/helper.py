@@ -19,6 +19,25 @@ def plot_signal(signal, time, title='Signal', xlabel='Time', ylabel='Amplitude')
     plt.grid(True, alpha=0.5)
     plt.show()
 
+
+def plot_signals(signal, time, original_signal=None, title='Signal', xlabel='Time', ylabel='Amplitude'):
+    plt.figure(figsize=(20, 5))
+    
+    if original_signal is not None:
+        original_time = np.linspace(0, len(original_signal) / 44100, len(original_signal))
+        plt.plot(original_time, original_signal, label='Original Signal', color='blue', alpha=0.7)
+    
+    segment_time = np.linspace(0, len(signal) / 44100, len(signal))
+    plt.plot(segment_time, signal, label='Cut-Out Signal', color='red')
+    
+    plt.title(title)
+    plt.xlabel(xlabel)
+    plt.ylabel(ylabel)
+    plt.legend()
+    plt.grid(True, alpha=0.5)
+    plt.show()
+
+
 def auto_correlation(df_signal, lags, type):
     """
     Plots the auto-correlation of a signal with improved aesthetics alongside the original waveform.
@@ -54,6 +73,7 @@ def auto_correlation(df_signal, lags, type):
     plt.tight_layout()
     plt.show()
 
+
 def plot_cross_correlation(cross_corr, lags, title='Kreuzkorrelation'):
     """
     Plots the cross-correlation of two signals with improved aesthetics.
@@ -80,6 +100,7 @@ def plot_original_modified_signal(original_signal, modified_signal, title='Origi
     plt.grid(True, alpha=0.5)
     plt.legend()
     plt.show()
+
 
 def butter_lowpass(cutoff, fs, order=5):
     """
